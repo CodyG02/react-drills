@@ -1,26 +1,50 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component{
+  constructor(){
+    super()
+
+    this.state = {
+      filterString: '',
+      phrase: ['react','is','blowing','my','mind','in','a','bad','way']
+    }
+    // this.displayPhrase = this.displayPhrase.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
+  }
+
+  handleUpdate(filter){
+    this.setState({
+      filterString: filter
+    })
+  }
+
+
+  //     displayPhrase(){
+  //       let display = this.state.phrase.map((e, i) => {
+  //         return 
+  //       })
+  //       return display
+  // }
+
+  render(){
+let filterPhrase = this.state.phrase.filter((e,i) =>{
+  return e.includes(this.state.filterString)
+})
+.map((e,i) => {
+  return <h2 key ={i}>{e}</h2>
+})
+
+  return(
+    <div className='App'>
+      <input onChange={event => this.handleUpdate(event.target.value)} placeholder='filter here'/>
+      {filterPhrase}
+      {/* {this.displayPhrase()} */}
     </div>
-  );
+    )
+  }
 }
 
 export default App;
+
